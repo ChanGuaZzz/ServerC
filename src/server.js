@@ -30,7 +30,7 @@ app.use(
   session({
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     proxy: true,
     name: 'ControlZSession', 
