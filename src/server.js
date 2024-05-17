@@ -32,8 +32,7 @@ app.use(
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
     saveUninitialized: true,
-    proxy: false,
-    name: 'ControlZSession', 
+    proxy: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
       httpOnly: true,
