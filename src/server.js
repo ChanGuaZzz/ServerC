@@ -12,10 +12,13 @@ import { virtualAssistant } from "./controllers/Assistant.js";
 import { addAlimento, getDieta } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
+import Redis from 'ioredis';
+import connectRedis from 'connect-redis';
 
 
 
-
+const RedisStore = connectRedis(session);
+const redisClient = new Redis();
 
 const app = express()
 app.use(express.json());
@@ -27,15 +30,16 @@ app.use(
 );
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
       httpOnly: true,
       secure: false, // Establece a true si estás usando HTTPS
     },
-    resave: true,
-    saveUninitialized: true,
   })
 );
 
