@@ -62,8 +62,8 @@ const registro = async (req, res) => {
 
 //existe registro
 const existeRegistro = async (req, res) => {
-  const consultaUsuario = "SELECT * FROM USUARIOS WHERE USUARIO=?";
-  const consultaEmail = "SELECT * FROM USUARIOS WHERE EMAIL=?";
+  const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
+  const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
 
   const usuario = req.body.usuario;
   const email = req.body.email;
