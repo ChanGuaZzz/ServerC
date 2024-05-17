@@ -67,8 +67,8 @@ if (error) {
 });
 
 //Mongoose mongodb base de datos rutina
-const uri = process.env.DB_URI;
-Mongoose.connect(uri)
+
+Mongoose.connect(process.env.DB_URI)
   .then(() => {
     console.log("Conexión exitosa a MongoDB");
   })
@@ -76,7 +76,7 @@ Mongoose.connect(uri)
     console.error("Error de conexión a MongoDB:", error);
   });
 
-app.listen(8114, () => {
+app.listen(process.env.PORT, () => {
   console.log("servidor corriendo...");
 });
 

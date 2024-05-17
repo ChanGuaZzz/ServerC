@@ -3,17 +3,15 @@ import mysql from "mysql";
 import Mongoose from "mongoose";
 
 const db = mysql.createConnection({
-  host: "fr4.riotnodes.co.uk",
-  port: 3306,
-  user: "u276_UrL3zRx649",
-  password: "=gLxPRUrTIC=BegwC8y9rGtD",
-  database: "s276_controlz",
+  host: process.env.DBHOST,
+  port: process.env.DBPORT,
+  user: process.env.DBUSER,
+  password: process.env.DBPASS,
+  database: process.env.DBNAME
 });
-
-const uri = process.env.DB_URI;
 const connectMongoDB = async () => {
   try {
-    await Mongoose.connect(uri);
+    await Mongoose.connect(process.env.DB_URI);
     console.log("Conexión exitosa a MongoDB");
   } catch (error) {
     console.error("Error de conexión a MongoDB:", error);
