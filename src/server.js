@@ -30,9 +30,9 @@ app.use(
   session({
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
+    resave: true,
+    saveUninitialized: true,
+    proxy: false,
     name: 'ControlZSession', 
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
