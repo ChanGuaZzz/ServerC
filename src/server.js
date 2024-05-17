@@ -21,7 +21,7 @@ const app = express()
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://controlz.kesug.com",
+    origin: "https://controlz.onrender.com",
     credentials: true,
   })
 );
