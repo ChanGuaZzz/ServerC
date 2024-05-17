@@ -31,7 +31,7 @@ app.use(
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     proxy: true,
     name: 'ControlZSession', 
     cookie: {
