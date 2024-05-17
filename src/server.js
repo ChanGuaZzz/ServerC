@@ -17,8 +17,6 @@ import connectRedis from 'connect-redis';
 
 
 
-const RedisStore = connectRedis(session);
-const redisClient = new Redis();
 
 const app = express()
 app.use(express.json());
@@ -30,15 +28,14 @@ app.use(
 );
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
-      httpOnly: true,
-      secure: false, // Establece a true si estás usando HTTPS
+      httpOnly: false,
+      secure: true, // Establece a true si estás usando HTTPS
     },
   })
 );
