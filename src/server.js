@@ -17,7 +17,7 @@ import Redis from 'redis';
 import connectRedis from 'connect-redis';
 
 // Configura Redis client
-const RedisStore = connectRedis(session);
+const RedisStore = connectRedis()
 /*
 const redisClient = Redis.createClient({
   host: process.env.RDHOST, // Cambia esto a la configuración de tu Redis
