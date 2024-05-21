@@ -42,7 +42,7 @@ app.use(
 );
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: RedisStore({ client: redisClient }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
