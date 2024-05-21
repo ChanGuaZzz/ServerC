@@ -32,7 +32,8 @@ redisClient.on('connect', () => {
   console.log('Connected to redis');
 });
 
-const RedisStore = new connectRedis(session);
+const RedisStore = new connectRedis(session)({ client: redisClient });
+
 
 const app = express()
 app.use(express.json());
