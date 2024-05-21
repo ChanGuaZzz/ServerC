@@ -35,7 +35,7 @@ app.use(
     proxy: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
-      httpOnly: false,
+      httpOnly: true,
       secure: true, // Establece a true si estás usando HTTPS
       sameSite: 'none' 
     },
