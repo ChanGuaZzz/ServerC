@@ -12,6 +12,7 @@ import { virtualAssistant } from "./controllers/Assistant.js";
 import { addAlimento, getDieta } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
+/*
 import Redis from 'redis';
 import connectRedis from 'connect-redis';
 
@@ -29,7 +30,7 @@ redisClient.on('error', (err) => {
 redisClient.on('connect', () => {
   console.log('Connected to redis');
 });
-
+*/
 
 
 const app = express()
@@ -42,7 +43,7 @@ app.use(
 );
 app.use(
   session({
-    store: RedisStore({ client: redisClient }),
+    //store: RedisStore({ client: redisClient }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
