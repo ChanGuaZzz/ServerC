@@ -17,8 +17,8 @@ import Redis from 'redis';
 import connectRedis from 'connect-redis';
 
 // Configura Redis client
-const RedisStore = new connectRedis(session);
-/*
+
+
 const redisClient = Redis.createClient({
   host: process.env.RDHOST, // Cambia esto a la configuración de tu Redis
   port: process.env.RDPORT,
@@ -31,8 +31,8 @@ redisClient.on('error', (err) => {
 redisClient.on('connect', () => {
   console.log('Connected to redis');
 });
-*/
 
+const RedisStore = new connectRedis(session);
 
 const app = express()
 app.use(express.json());
