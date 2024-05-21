@@ -80,7 +80,7 @@ Mongoose.connect(process.env.DB_URI)
   });
 
 app.listen(process.env.PORT, () => {
-  console.log("servidor corriendo...");
+  console.log("servidor corriendo... en el puerto", process.env.PORT );
 });
 
 //Asistente virtual
