@@ -12,6 +12,7 @@ import { virtualAssistant } from "./controllers/Assistant.js";
 import { addAlimento, getDieta } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
+import MongoStore from "connect-mongo";
 
 
 const app = express()
@@ -24,7 +25,10 @@ app.use(
 );
 app.use(
   session({
-    //store: RedisStore({ client: redisClient }),
+    store: MongoStore.create({ 
+      mongoUrl: process.env.DB_URI, // URL de conexión a MongoDB
+      collectionName: 'sessionsC' // Nombre de la colección para almacenar las sesiones
+    }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
