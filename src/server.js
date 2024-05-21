@@ -15,6 +15,20 @@ import { db } from "./config/db.js";
 import Redis from 'redis';
 import connectRedis from 'connect-redis';
 
+// Configura Redis client
+const RedisStore = connectRedis(session);
+const redisClient = Redis.createClient({
+  host: process.env.RDHOST, // Cambia esto a la configuración de tu Redis
+  port: process.env.RDPORT,
+});
+
+redisClient.on('error', (err) => {
+  console.error('Could not connect to redis', err);
+});
+
+redisClient.on('connect', () => {
+  console.log('Connected to redis');
+});
 
 
 
@@ -28,6 +42,7 @@ app.use(
 );
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     key: "tu_clave_personalizada",
     secret: "ÑLKJHGFDSAMNBVCXZPOIUYTREWQ",
     resave: true,
