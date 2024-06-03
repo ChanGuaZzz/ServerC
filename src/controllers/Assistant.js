@@ -4,6 +4,8 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // Define your virtual assistant function
 export async function virtualAssistant(question) {
     try {
+       
+        console.log('aii=',openai);
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [
