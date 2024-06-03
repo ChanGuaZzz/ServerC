@@ -19,10 +19,11 @@ export async function virtualAssistant(question) {
             ],
             temperature: 0.5,
         });
+console.log('ress=', response);
 
         // Extract the generated answer from the response
         const answer = response.choices[0].message.content
-
+console.log('Respuesta=', answer);
         // Return the answer
         return answer;
     } catch (error) {
