@@ -20,6 +20,7 @@ export async function virtualAssistant(question) {
             temperature: 0.5,
         });
 console.log('ress=', response);
+        console.log(openai);
 
         // Extract the generated answer from the response
         const answer = response.choices[0].message.content
