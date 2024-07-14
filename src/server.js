@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "https://controlz.onrender.com",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     credentials: true,
   })
 );
