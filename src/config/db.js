@@ -1,11 +1,12 @@
 // config/db.js
+require('dotenv').config();
 import pkg from "pg";
 const { Client } = pkg;
 import Mongoose from "mongoose";
 
 // Configuración de PostgreSQL
 const db = new Client({
-  host: process.env.DBHOST,
+  host: process.env.DBHOST, // Ensure this is correct
   port: process.env.DBPORT,
   user: process.env.DBUSER,
   password: process.env.DBPASS,
