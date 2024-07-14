@@ -1,5 +1,4 @@
 // config/db.js
-require('dotenv').config();
 import pkg from "pg";
 const { Client } = pkg;
 import Mongoose from "mongoose";
