@@ -31,3 +31,5 @@ const connectMongoDB = async () => {
     console.error("Error de conexión a MongoDB:", error);
   }
 };
+
+export { db, connectPostgres, connectMongoDB };
