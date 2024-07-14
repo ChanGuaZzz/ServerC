@@ -1,5 +1,6 @@
 // config/db.js
-import { Client } from "pg";
+import pkg from "pg";
+const { Client } = pkg;
 import Mongoose from "mongoose";
 
 // Configuración de PostgreSQL
@@ -30,5 +31,3 @@ const connectMongoDB = async () => {
     console.error("Error de conexión a MongoDB:", error);
   }
 };
-
-export { db, connectPostgres, connectMongoDB };
