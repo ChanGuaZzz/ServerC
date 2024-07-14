@@ -17,6 +17,8 @@ import { db } from "./config/db.js";
 const app = express()
 app.use(express.json());
 
+connectPostgres();
+
 // CORS configuration
 const corsOptions = {
   origin: "https://controlz.onrender.com",
