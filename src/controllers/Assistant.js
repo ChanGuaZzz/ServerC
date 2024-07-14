@@ -30,9 +30,8 @@ console.log('Respuesta=', answer);
         // Return the answer
         return answer;
     }  catch (error) {
-        if (error.status === 429 || error.status === 502 ) {
-            return "Your OpenAI API Key has reached its usage limit, please check your plan and billing details.";
-        }
+        return "Your OpenAI API Key has reached its usage limit, please check your plan and billing details.";
+    }
         // Manejo de otros errores
         throw error;
     }
