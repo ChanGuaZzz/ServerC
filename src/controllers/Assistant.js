@@ -29,8 +29,11 @@ console.log('ress=', response);
 console.log('Respuesta=', answer);
         // Return the answer
         return answer;
-    } catch (error) {
-        console.error('Error:', error);
-        return null;
+    }  catch (error) {
+        if (error.status === 429) {
+            return "Your OpenAI API Key has reached its usage limit, please check your plan and billing details.";
+        }
+        // Manejo de otros errores
+        throw error;
     }
 }
