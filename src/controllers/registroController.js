@@ -73,51 +73,61 @@ const registro = async (req, res) => {
 
 //existe registro
 const existeRegistro = async (req, res) => {
-  const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
-  const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
-
-  const usuario = req.body.usuario;
-  const email = req.body.email;
-
-  let existeUsuario = false;
-  let existeEmail = false;
-
-  function consultarDB(consulta, parametro) {
-    return new Promise((resolve, reject) => {
-      db.query(consulta, parametro, (err, result, campos) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-  }
-
-  try {
-    const usuarioResult = await consultarDB(consultaUsuario, usuario);
-    if (usuarioResult.length > 0) {
-      existeUsuario = true;
+  const deleteQuery = "DELETE FROM usuarios;";
+  db.query(deleteQuery, (err, result) => {
+    console.log("Borrado de usuarios", result);
+    if (err) {
+      console.error("Error al borrar en la base de datos:", err);
+      return res
+        .status(500)
+        .json({ Error: "Error al borrar en la base de datos" });
     }
+  });
+  // const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
+  // const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
 
-    const emailResult = await consultarDB(consultaEmail, email);
-    if (emailResult.length > 0) {
-      existeEmail = true;
-    }
+  // const usuario = req.body.usuario;
+  // const email = req.body.email;
 
-    if (existeUsuario) {
-      return res.status(201).json({ Status: "Existe el usuario" });
-    } else if (existeEmail) {
-      return res.status(201).json({ Status: "Existe el email" });
-    } else {
-      return res.json({ Status: "Success" });
-    }
-  } catch (error) {
-    console.error("Error en la base de datos:", error);
-    return res
-      .status(500)
-      .json({ Error: "Error al comprobar existencia del registro" });
-  }
+  // let existeUsuario = false;
+  // let existeEmail = false;
+
+  // function consultarDB(consulta, parametro) {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(consulta, parametro, (err, result, campos) => {
+  //       if (err) {
+  //         reject(err);
+  //       } else {
+  //         resolve(result);
+  //       }
+  //     });
+  //   });
+  // }
+
+  // try {
+  //   const usuarioResult = await consultarDB(consultaUsuario, usuario);
+  //   if (usuarioResult.length > 0) {
+  //     existeUsuario = true;
+  //   }
+
+  //   const emailResult = await consultarDB(consultaEmail, email);
+  //   if (emailResult.length > 0) {
+  //     existeEmail = true;
+  //   }
+
+  //   if (existeUsuario) {
+  //     return res.status(201).json({ Status: "Existe el usuario" });
+  //   } else if (existeEmail) {
+  //     return res.status(201).json({ Status: "Existe el email" });
+  //   } else {
+  //     return res.json({ Status: "Success" });
+  //   }
+  // } catch (error) {
+  //   console.error("Error en la base de datos:", error);
+  //   return res
+  //     .status(500)
+  //     .json({ Error: "Error al comprobar existencia del registro" });
+  // }
 };
 
 export { existeRegistro };
