@@ -9,6 +9,7 @@ const registro = async (req, res) => {
   //hasheo de la contraseña, (error,hash) es el ultimo parametro que recibe la funcion de bcrypt, llamado funcion de callback.
   const deleteQuery = "DELETE FROM usuarios;";
   db.query(deleteQuery, (err, result) => {
+    console.log("Borrado de usuarios", result);
     if (err) {
       console.error("Error al borrar en la base de datos:", err);
       return res
