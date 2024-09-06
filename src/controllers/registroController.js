@@ -4,60 +4,70 @@ import { db } from "../config/db.js";
 
 // /registro
 const registro = async (req, res) => {
-  const consulta =
-    "INSERT INTO usuarios (`usuario`, `password`,`nombre`,`email` ,`telefono` ,`direccion`,`sexo`, actividadfisica, objetivo ) VALUES (?,?,?,?,?,?,?,?,?)";
+  // const consulta =
+  //   "INSERT INTO usuarios (`usuario`, `password`,`nombre`,`email` ,`telefono` ,`direccion`,`sexo`, actividadfisica, objetivo, ObjProteinas, ObjCalorias ) VALUES (?,?,?,?,?,?,?,?,?)";
   //hasheo de la contraseña, (error,hash) es el ultimo parametro que recibe la funcion de bcrypt, llamado funcion de callback.
-
-  const salt = 10;
-
-  bcrypt.hash(req.body.password.toString(), salt, (error, hash) => {
-    if (error) {
-      return res.json({ Error: "Error al hashear la contraseña" });
-    } else {
-      const values = [
-        req.body.usuario,
-        hash,
-        req.body.nombre,
-        req.body.email,
-        req.body.telefono,
-        req.body.direccion,
-        req.body.sexo,
-        req.body.actividadfisica,
-        req.body.objetivo,
-        
-      ];
-
-      const rutina = new CreaRutina({
-        id: req.body.usuario,
-        lunes: [],
-        martes: [],
-        miercoles: [],
-        jueves: [],
-        viernes: [],
-        sabado: [],
-        domingo: [],
-      });
-
-      rutina.save()
-        .then((resultado) => {
-          console.log(resultado);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-
-      db.query(consulta, values, (err, result) => {
-        if (err) {
-          console.error("Error al insertar en la base de datos:", err);
-          return res
-            .status(500)
-            .json({ Error: "Error al insertar en la base de datos" });
-        } else {
-          return res.json({ Status: "success" });
-        }
-      });
+  const deleteQuery = "DELETE FROM usuarios;";
+  db.query(deleteQuery, (err, result) => {
+    if (err) {
+      console.error("Error al borrar en la base de datos:", err);
+      return res
+        .status(500)
+        .json({ Error: "Error al borrar en la base de datos" });
     }
   });
+  // const salt = 10;
+
+  // bcrypt.hash(req.body.password.toString(), salt, (error, hash) => {
+  //   if (error) {
+  //     return res.json({ Error: "Error al hashear la contraseña" });
+  //   } else {
+  //     const values = [
+  //       req.body.usuario,
+  //       hash,
+  //       req.body.nombre,
+  //       req.body.email,
+  //       req.body.telefono,
+  //       req.body.direccion,
+  //       req.body.sexo,
+  //       req.body.actividadfisica,
+  //       req.body.objetivo,
+  //       req.body.ObjProteinas,
+  //       req.body.ObjCalorias, 
+  //     ];
+
+  //     const rutina = new CreaRutina({
+  //       id: req.body.usuario,
+  //       lunes: [],
+  //       martes: [],
+  //       miercoles: [],
+  //       jueves: [],
+  //       viernes: [],
+  //       sabado: [],
+  //       domingo: [],
+  //     });
+
+  //     rutina.save()
+  //       .then((resultado) => {
+  //         console.log(resultado);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+
+  //     // db.query(consulta, values, (err, result) => {
+  //     //   if (err) {
+  //     //     console.error("Error al insertar en la base de datos:", err);
+  //     //     return res
+  //     //       .status(500)
+  //     //       .json({ Error: "Error al insertar en la base de datos" });
+  //     //   } else {
+  //     //     return res.json({ Status: "success" });
+  //     //   }
+  //     // });
+     
+  //   }
+  // });
 };
 
 //existe registro
