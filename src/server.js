@@ -16,19 +16,12 @@ import { db } from "./config/db.js";
 
 const app = express()
 app.use(express.json());
-
-// CORS configuration
-const corsOptions = {
-  origin: "https://controlz.onrender.com",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://controlz.onrender.com",
+    credentials: true,
+  })
+);
 app.use(
   session({
     key: "tu_clave_personalizada",
