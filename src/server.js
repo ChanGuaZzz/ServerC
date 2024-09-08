@@ -9,7 +9,7 @@ import { ActualizarRutina, getRutina } from "./controllers/rutinaController.js";
 import { login } from "./controllers/loginController.js";
 import { obtenerInformacionProductos } from "./controllers/obtenerAlimento.js";
 import { virtualAssistant } from "./controllers/Assistant.js";
-import { addAlimento, getDieta } from "./controllers/DietaController.js";
+import { addAlimento, getDieta, RemoveFood } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
 
@@ -153,3 +153,4 @@ app.post("/obtenerAlimento", async (req, res) => {
 app.post("/AddAlimento", addAlimento);
 
 app.post("/getDieta", getDieta);
+app.post("/RemoveFood", RemoveFood);
