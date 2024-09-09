@@ -12,6 +12,7 @@ import { virtualAssistant } from "./controllers/Assistant.js";
 import { addAlimento, getDieta, RemoveFood } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
+import { addToCart } from "./controllers/shopcar.js";
 
 
 const app = express()
@@ -119,6 +120,9 @@ app.post("/registro", registro);
 app.post("/modificar", modificar);
 
 app.post("/ActualizarRutina", ActualizarRutina);
+
+app.post ("/addToCart", addToCart);
+
 
 app.post("/existeregistro", existeRegistro);
 
