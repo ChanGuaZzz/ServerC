@@ -13,7 +13,7 @@ import { addAlimento, getDieta, RemoveFood } from "./controllers/DietaController
 import { modificar } from "./controllers/ModifyDatos.js";
 import { db } from "./config/db.js";
 import { addToCart } from "./controllers/shopcar.js";
-import { socketIo } from "socket.io";
+import { Server } from "socket.io";
 import { createServer } from "http";
 
 
@@ -21,7 +21,7 @@ import { createServer } from "http";
 
 const app = express()
 const server = createServer(app);
-const io = new socketIo(server, {
+const io = new Server(server, {
   cors: {
     origin: "https://controlz.onrender.com",
     methods: ["GET", "POST"],
