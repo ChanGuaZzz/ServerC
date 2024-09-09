@@ -177,4 +177,15 @@ app.post("/AddAlimento", addAlimento);
 app.post("/getDieta", getDieta);
 app.post("/RemoveFood", RemoveFood);
 
+io.on("connection", (socket) => {
+
+  console.log("Usuario conectado");
+
+  socket.on("disconnect", () => {
+    console.log("Usuario desconectado");
+  }
+  );
+}
+);
+
 export { io };
