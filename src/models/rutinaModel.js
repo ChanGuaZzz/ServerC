@@ -27,7 +27,7 @@ const carritoCompraSchema = new Mongoose.Schema({
       id: String,
       name: String,
       quantity: Number,
-      price: Number,
+      price: String,
       imageSrc: String,
     },
   ],
