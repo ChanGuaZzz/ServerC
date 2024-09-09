@@ -40,6 +40,19 @@ const registro = async (req, res) => {
         domingo: [],
       });
 
+      const carrito = new CarritoCompra({
+        id: req.body.usuario,
+        productos: [],
+      });
+
+      carrito.save()
+        .then((resultado) => {
+          console.log('carrito creado',resultado);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
       rutina.save()
         .then((resultado) => {
           console.log(resultado);
