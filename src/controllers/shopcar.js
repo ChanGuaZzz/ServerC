@@ -1,6 +1,5 @@
 import e from "express";
 import { creaCarritoCompra } from "../models/rutinaModel.js";
-import { io } from "../server.js";
 
 const addToCart = async (req, res) => {
     try {
@@ -35,8 +34,6 @@ const addToCart = async (req, res) => {
             await usercar.save();
 
             req.session.carrito = usercar.productos;
-
-            io.emit("sessionChanged");
 
             console.log(`Carrito actualizado:`, req.session.carrito);
 
