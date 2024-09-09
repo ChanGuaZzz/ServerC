@@ -21,6 +21,9 @@ app.use(
   cors({
     origin: "https://controlz.onrender.com",
     credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 app.use(
