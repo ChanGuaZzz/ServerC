@@ -25,7 +25,7 @@ async function obtenerInformacionProductos(nombreProducto, offset) {
   }
 
   let attempts = 0;
-  const maxAttempts = 2;
+  const maxAttempts = 1;
   let informacionProductos = [];
   try {
     while (informacionProductos.length < 6 && attempts < maxAttempts) {
