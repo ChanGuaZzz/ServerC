@@ -33,7 +33,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24, // 1 día en milisegundos
       httpOnly: true,
       secure: true, // Establece a true si estás usando HTTPS
-      sameSite: 'none'
+      sameSite: 'none' 
     },
   })
 );
@@ -41,7 +41,7 @@ app.use(
 
 
 
-var consultaDbCreate = "CREATE TABLE IF NOT EXISTS usuarios ( \
+var consultaDbCreate= "CREATE TABLE IF NOT EXISTS usuarios ( \
   usuario VARCHAR(50), \
   password VARCHAR(1000), \
   nombre VARCHAR(100), \
@@ -55,14 +55,14 @@ email VARCHAR(100), \
   actividadfisica INT, \
   objetivo INT \
 )";
-var drop = "DROP TABLE usuarios"
+var drop= "DROP TABLE usuarios"
 
 db.query(consultaDbCreate, (error, results, fields) => {
-  if (error) {
-    console.error('Error al ejecutar la consulta SQL:', error);
-  } else {
-    console.log('Tabla Usada correctamente');
-  }
+if (error) {
+  console.error('Error al ejecutar la consulta SQL:', error);
+} else {
+  console.log('Tabla Usada correctamente');
+}
 });
 
 //Mongoose mongodb base de datos rutina
@@ -76,7 +76,7 @@ Mongoose.connect(process.env.DB_URI)
   });
 
 app.listen(process.env.PORT, () => {
-  console.log("servidor corriendo... en el puerto", process.env.PORT);
+  console.log("servidor corriendo... en el puerto", process.env.PORT );
 });
 
 //Asistente virtual
@@ -103,7 +103,7 @@ app.get("/logout", (req, res) => {
 
 app.get("/getSession", (req, res) => {
   console.log(req.session);
-
+    
   res.json(req.session);
 });
 app.use("/getrutina", getRutina);
@@ -122,7 +122,7 @@ app.post("/ActualizarRutina", ActualizarRutina);
 
 app.post("/existeregistro", existeRegistro);
 
-app.post("/login", login);
+app.post("/login",login);
 
 
 
