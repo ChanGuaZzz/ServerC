@@ -14,7 +14,9 @@ const addToCart=  async (req, res) => {
         else {
             console.log("Carrito encontrado:", usercar);
             if(usercar.productos.length> 0){
+                usercar.productos = usercar.productos.filter(p => p !== null);
                 const productoIndex = usercar.productos.findIndex((p) => p.name === producto.name);
+               console.log("Producto index ENTRA AQUI QUE TIENE LENGHT MAYOR QUE 0", productoIndex);
                 if (productoIndex !== -1) { // Si el producto ya está en el carrito, se suma la cantidad, si productoIndexno se encuentra el producto en el carrito  es -1 
                     usercar.productos[productoIndex].quantity += producto.quantity;
                 } else {
