@@ -20,7 +20,7 @@ import { createServer } from "http";
 
 
 const app = express()
-const Server = createServer(app);
+const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "https://controlz.onrender.com",
