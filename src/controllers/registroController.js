@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { CreaRutina } from "../models/rutinaModel.js";
+import { CreaRutina, creaCarritoCompra } from "../models/rutinaModel.js";
 import { db } from "../config/db.js";
 
 // /registro
@@ -40,7 +40,7 @@ const registro = async (req, res) => {
         domingo: [],
       });
 
-      const carrito = new CarritoCompra({
+      const carrito = new creaCarritoCompra({
         id: req.body.usuario,
         productos: [],
       });
