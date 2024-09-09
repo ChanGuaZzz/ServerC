@@ -21,7 +21,7 @@ const login = async (req, res) => {
       });
     });
 
-    usercar = await creaCarritoCompra.findOne({ id: req.body.usuario });
+    const usercar = await creaCarritoCompra.findOne({ id: req.body.usuario });
 
 
     if (result.length > 0) {
