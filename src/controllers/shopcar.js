@@ -13,14 +13,18 @@ const addToCart=  async (req, res) => {
         }
         else {
             console.log("Carrito encontrado:", usercar);
-
-            const productoIndex = usercar.productos.findIndex((p) => p.name === producto.name);
-
-            if (productoIndex !== -1) { // Si el producto ya está en el carrito, se suma la cantidad, si productoIndexno se encuentra el producto en el carrito  es -1 
-                usercar.productos[productoIndex].quantity += producto.quantity;
-            } else {
+            if(usercar.productos.length> 0){
+                const productoIndex = usercar.productos.findIndex((p) => p.name === producto.name);
+                if (productoIndex !== -1) { // Si el producto ya está en el carrito, se suma la cantidad, si productoIndexno se encuentra el producto en el carrito  es -1 
+                    usercar.productos[productoIndex].quantity += producto.quantity;
+                } else {
+                    usercar.productos.push(producto);
+                }
+            }else{
                 usercar.productos.push(producto);
             }
+
+            
             await usercar.save();
 
             req.session.carrito = usercar.productos;
