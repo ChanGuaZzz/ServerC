@@ -1,4 +1,3 @@
-// controllers/authController.js
 import bcrypt from "bcrypt";
 import { db } from "../config/db.js";
 import { creaCarritoCompra } from "../models/rutinaModel.js";
