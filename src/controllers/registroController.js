@@ -80,75 +80,75 @@ const existeRegistro = async (req, res) => {
 
   //reset base de datos
 
-  // const consultaDeleteTable = `DROP TABLE IF EXISTS usuarios;`;
-  // db.query(consultaDeleteTable);
+  const consultaDeleteTable = `DROP TABLE IF EXISTS usuarios;`;
+  db.query(consultaDeleteTable);
 
-  // const consultaCreateTable = `
-  // CREATE TABLE IF NOT EXISTS usuarios (
-  //   id INT AUTO_INCREMENT PRIMARY KEY,
-  //   nombre VARCHAR(40) NOT NULL,
-  //   password VARCHAR(260) NOT NULL,
-  //   email VARCHAR(50) NOT NULL UNIQUE,
-  //   telefono VARCHAR(20),
-  //   direccion VARCHAR(70),
-  //   sexo INT,
-  //   edad INT,
-  //   peso FLOAT,
-  //   altura FLOAT,
-  //   actividadfisica INT,
-  //   objetivo INT,
-  //   ObjProteinas VARCHAR(260),
-  //   ObjCalorias VARCHAR(260),
-  //   usuario VARCHAR(70) NOT NULL UNIQUE
-  // );
-  // `;
-  // db.query(consultaCreateTable)
+  const consultaCreateTable = `
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(40) NOT NULL,
+    password VARCHAR(260) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    telefono VARCHAR(20),
+    direccion VARCHAR(70),
+    sexo INT,
+    edad INT,
+    peso FLOAT,
+    altura FLOAT,
+    actividadfisica INT,
+    objetivo INT,
+    ObjProteinas VARCHAR(260),
+    ObjCalorias VARCHAR(260),
+    usuario VARCHAR(70) NOT NULL UNIQUE
+  );
+  `;
+  db.query(consultaCreateTable)
 
-  const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
-  const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
+  // const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
+  // const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
 
-  const usuario = req.body.usuario;
-  const email = req.body.email;
+  // const usuario = req.body.usuario;
+  // const email = req.body.email;
 
-  let existeUsuario = false;
-  let existeEmail = false;
+  // let existeUsuario = false;
+  // let existeEmail = false;
 
-  function consultarDB(consulta, parametro) {
-    return new Promise((resolve, reject) => {
-      db.query(consulta, parametro, (err, result, campos) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-  }
+  // function consultarDB(consulta, parametro) {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(consulta, parametro, (err, result, campos) => {
+  //       if (err) {
+  //         reject(err);
+  //       } else {
+  //         resolve(result);
+  //       }
+  //     });
+  //   });
+  // }
 
-  try {
-    const usuarioResult = await consultarDB(consultaUsuario, usuario);
-    if (usuarioResult.length > 0) {
-      existeUsuario = true;
-    }
+  // try {
+  //   const usuarioResult = await consultarDB(consultaUsuario, usuario);
+  //   if (usuarioResult.length > 0) {
+  //     existeUsuario = true;
+  //   }
 
-    const emailResult = await consultarDB(consultaEmail, email);
-    if (emailResult.length > 0) {
-      existeEmail = true;
-    }
+  //   const emailResult = await consultarDB(consultaEmail, email);
+  //   if (emailResult.length > 0) {
+  //     existeEmail = true;
+  //   }
 
-    if (existeUsuario) {
-      return res.status(201).json({ Status: "Existe el usuario" });
-    } else if (existeEmail) {
-      return res.status(201).json({ Status: "Existe el email" });
-    } else {
-      return res.json({ Status: "Success" });
-    }
-  } catch (error) {
-    console.error("Error en la base de datos:", error);
-    return res
-      .status(500)
-      .json({ Error: "Error al comprobar existencia del registro" });
-  }
+  //   if (existeUsuario) {
+  //     return res.status(201).json({ Status: "Existe el usuario" });
+  //   } else if (existeEmail) {
+  //     return res.status(201).json({ Status: "Existe el email" });
+  //   } else {
+  //     return res.json({ Status: "Success" });
+  //   }
+  // } catch (error) {
+  //   console.error("Error en la base de datos:", error);
+  //   return res
+  //     .status(500)
+  //     .json({ Error: "Error al comprobar existencia del registro" });
+  // }
 };
 
 export { existeRegistro };
