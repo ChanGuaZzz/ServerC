@@ -11,7 +11,7 @@ import { obtenerInformacionProductos } from "./controllers/obtenerAlimento.js";
 import { virtualAssistant } from "./controllers/Assistant.js";
 import { addAlimento, getDieta, RemoveFood } from "./controllers/DietaController.js";
 import { modificar } from "./controllers/ModifyDatos.js";
-import { db } from "./config/db.js";
+// import { db } from "./config/db.js";
 import { addToCart, removetoCart } from "./controllers/shopcar.js";
 
 
