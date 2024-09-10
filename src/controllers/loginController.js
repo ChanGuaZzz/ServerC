@@ -14,7 +14,7 @@ const login = async (req, res) => {
       db.query(consulta, values, (err, result) => {
         if (err) {
           console.log("Error en la consulta:", err);
-          reject("Error en la consulta a la base de datos");
+          reject("Error en la consulta a la base de datos", err);
         } else {
           resolve(result);
         }
