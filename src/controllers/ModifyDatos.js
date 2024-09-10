@@ -1,4 +1,4 @@
-import { db } from "../config/db.js";
+import { pool } from "../config/db.js";
 
 export const modificar = async (req, res) => {
   const consulta =
@@ -24,7 +24,7 @@ export const modificar = async (req, res) => {
   try {
     // Actualizar datos en la base de datos
     const insertarmodi = await new Promise((resolve, reject) => {
-      db.query(consulta, values, (err, result) => {
+      pool.query(consulta, values, (err, result) => {
         if (err) {
           console.error("Error al insertar en la base de datos:", err);
           reject("Error al insertar la modificacion en la base de datos");
@@ -36,7 +36,7 @@ export const modificar = async (req, res) => {
 
     // Consultar datos actualizados de la sesión
     const sacarsession = await new Promise((resolve, reject) => {
-      db.query(consultaSession, email, (err, result) => {
+      pool.query(consultaSession, email, (err, result) => {
         if (err) {
           console.log("Error en la consulta:", err);
           reject("Error en la consulta a la base de datos",err);

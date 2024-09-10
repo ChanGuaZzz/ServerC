@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { CreaRutina, creaCarritoCompra } from "../models/rutinaModel.js";
-import { db } from "../config/db.js";
+import { pool } from "../config/db.js";
 
 // /registro
 const registro = async (req, res) => {
@@ -61,7 +61,7 @@ const registro = async (req, res) => {
           console.error(err);
         });
 
-      db.query(consulta, values, (err, result) => {
+      pool.query(consulta, values, (err, result) => {
         if (err) {
           console.error("Error al insertar en la base de datos:", err);
           return res
@@ -115,7 +115,7 @@ const existeRegistro = async (req, res) => {
 
   function consultarDB(consulta, parametro) {
     return new Promise((resolve, reject) => {
-      db.query(consulta, parametro, (err, result, campos) => {
+      pool.query(consulta, parametro, (err, result, campos) => {
         if (err) {
           reject(err);
         } else {
