@@ -49,7 +49,7 @@ const connectMongoDB = async () => {
 };
 
 // Exportar funciones y variables
-export { connectMySQL, connectMongoDB, handleMySQLErrors };
+export { connectMySQL, connectMongoDB, handleMySQLErrors , db};
 
 // Inicializar conexiones
 connectMySQL().then(() => handleMySQLErrors()).catch(err => console.error('Error inicializando conexión MySQL:', err));
