@@ -13,15 +13,15 @@ const pool = mysql.createPool({
   multipleStatements: true, // Permitir múltiples declaraciones (si es necesario)
 });
 
-// Función para manejar errores y reconectar
+// Función para manejar errores y reconectar automáticamente
 function handleDisconnect() {
   pool.getConnection((err, connection) => {
     if (err) {
       console.error('Error al obtener la conexión del pool:', err);
       
       // Si ocurre un error debido a la pérdida de conexión, intentamos reconectar
-      if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.fatal) {
-        console.error('Conexión a MySQL perdida. Intentando reconectar...');
+      if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.fatal || err.code === 'ECONNREFUSED') {
+        console.error('Conexión a MySQL perdida o rechazada. Intentando reconectar...');
 
         // Intentar reconexión después de un tiempo
         setTimeout(handleDisconnect, 2000);
@@ -41,8 +41,8 @@ handleDisconnect();
 // Manejar errores globales del pool
 pool.on('error', (err) => {
   console.error('Error en la conexión MySQL:', err);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.fatal) {
-    console.error('Conexión a MySQL perdida. Intentando reconectar...');
+  if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.fatal || err.code === 'ECONNREFUSED') {
+    console.error('Conexión a MySQL perdida o rechazada. Intentando reconectar...');
     handleDisconnect();
   }
 });

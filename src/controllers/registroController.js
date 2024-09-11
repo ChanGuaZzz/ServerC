@@ -89,7 +89,7 @@ const existeRegistro = async (req, res) => {
 
   function consultarDB(consulta, parametro) {
     return new Promise((resolve, reject) => {
-      // Intentar obtener una conexión del pool
+      // Obtener una conexión del pool antes de la consulta
       pool.getConnection((err, connection) => {
         if (err) {
           console.error('Error al obtener la conexión del pool:', err);
@@ -130,17 +130,9 @@ const existeRegistro = async (req, res) => {
     }
   } catch (error) {
     console.error("Error en la base de datos:", error);
-
-    // Intentar reconectar si se detecta un problema de conexión
-    if (error === 'Error en la conexión a la base de datos') {
-      console.log('Intentando reconexión y reintentar el registro...');
-      // Esperar unos segundos antes de reintentar
-      setTimeout(() => {
-        existeRegistro(req, res); // Reintentar el registro después de reconexión
-      }, 5000);
-    } else {
-      return res.status(503).json({ Error: "Servicio no disponible temporalmente" });
-    }
+    return res
+      .status(503)
+      .json({ Error: "Servicio no disponible temporalmente" });
   }
 };
 
