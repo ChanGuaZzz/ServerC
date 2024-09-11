@@ -4,11 +4,10 @@ import { pool } from "../config/db.js";
 
 // /registro
 const registro = async (req, res) => {
-
   const consulta =
     "INSERT INTO usuarios (`usuario`, `password`,`nombre`,`email` ,`telefono` ,`direccion`,`sexo`, actividadfisica, objetivo, ObjProteinas, ObjCalorias ) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-  //hasheo de la contraseña, (error,hash) es el ultimo parametro que recibe la funcion de bcrypt, llamado funcion de callback.
 
+  // hasheo de la contraseña
   const salt = 10;
 
   bcrypt.hash(req.body.password.toString(), salt, (error, hash) => {
@@ -45,15 +44,17 @@ const registro = async (req, res) => {
         productos: [],
       });
 
-      carrito.save()
+      carrito
+        .save()
         .then((resultado) => {
-          console.log('carrito creado',resultado);
+          console.log("carrito creado", resultado);
         })
         .catch((err) => {
           console.error(err);
         });
 
-      rutina.save()
+      rutina
+        .save()
         .then((resultado) => {
           console.log(resultado);
         })
@@ -75,35 +76,8 @@ const registro = async (req, res) => {
   });
 };
 
-//existe registro
+// Existe registro
 const existeRegistro = async (req, res) => {
-
-  //reset base de datos
-
-  // const consultaDeleteTable = `DROP TABLE IF EXISTS usuarios;`;
-  // db.query(consultaDeleteTable);
-
-  // const consultaCreateTable = `
-  // CREATE TABLE IF NOT EXISTS usuarios (
-  //   id INT AUTO_INCREMENT PRIMARY KEY,
-  //   nombre VARCHAR(40) NOT NULL,
-  //   password VARCHAR(260) NOT NULL,
-  //   email VARCHAR(50) NOT NULL UNIQUE,
-  //   telefono VARCHAR(20),
-  //   direccion VARCHAR(70),
-  //   sexo INT,
-  //   edad INT,
-  //   peso FLOAT,
-  //   altura FLOAT,
-  //   actividadfisica INT,
-  //   objetivo INT,
-  //   ObjProteinas VARCHAR(260),
-  //   ObjCalorias VARCHAR(260),
-  //   usuario VARCHAR(70) NOT NULL UNIQUE
-  // );
-  // `;
-  // db.query(consultaCreateTable)
-
   const consultaUsuario = "SELECT * FROM usuarios WHERE usuario=?";
   const consultaEmail = "SELECT * FROM usuarios WHERE email=?";
 
@@ -115,11 +89,22 @@ const existeRegistro = async (req, res) => {
 
   function consultarDB(consulta, parametro) {
     return new Promise((resolve, reject) => {
-      pool.query(consulta, parametro, (err, result, campos) => {
+      // Intentar obtener una conexión del pool
+      pool.getConnection((err, connection) => {
         if (err) {
-          reject(err);
+          console.error('Error al obtener la conexión del pool:', err);
+          reject('Error en la conexión a la base de datos');
         } else {
-          resolve(result);
+          connection.query(consulta, parametro, (err, result, campos) => {
+            // Liberar la conexión de vuelta al pool
+            connection.release();
+
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          });
         }
       });
     });
@@ -145,12 +130,18 @@ const existeRegistro = async (req, res) => {
     }
   } catch (error) {
     console.error("Error en la base de datos:", error);
-    return res
-      .status(500)
-      .json({ Error: "Error al comprobar existencia del registro" });
+
+    // Intentar reconectar si se detecta un problema de conexión
+    if (error === 'Error en la conexión a la base de datos') {
+      console.log('Intentando reconexión y reintentar el registro...');
+      // Esperar unos segundos antes de reintentar
+      setTimeout(() => {
+        existeRegistro(req, res); // Reintentar el registro después de reconexión
+      }, 5000);
+    } else {
+      return res.status(503).json({ Error: "Servicio no disponible temporalmente" });
+    }
   }
 };
 
-export { existeRegistro };
-
-export { registro };
+export { registro, existeRegistro };

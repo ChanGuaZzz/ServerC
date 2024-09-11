@@ -8,8 +8,8 @@ const pool = mysql.createPool({
   password: process.env.DBPASS,
   database: process.env.DBNAME,
   connectionLimit: 10, // Límite de conexiones en el pool
-  connectTimeout: 10000, // Tiempo de espera antes de dar timeout
-  acquireTimeout: 10000, // Tiempo para adquirir una nueva conexión
+  connectTimeout: 20000, // Tiempo de espera antes de dar timeout
+  acquireTimeout: 20000, // Tiempo para adquirir una nueva conexión
   multipleStatements: true, // Permitir múltiples declaraciones (si es necesario)
 });
 
